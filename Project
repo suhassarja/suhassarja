@@ -1,0 +1,37 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from bs4 import BeautifulSoup
+import requests
+import csv
+import time
+
+
+class Project:
+    url = "https://www.zenclass.in/login"
+    driver = webdriver.Firefox()
+    data = requests.get(url)
+
+
+    def Zen_login(self):
+        email = "suhassarja@email.com"
+        password = "PASSWORD"
+        self.driver.get(self.url)
+        time.sleep(5)
+        email1 = self.driver.find_element(by=By.XPATH, value='/html/body/div/div/div/div[1]/div[2]/div/div[1]/form/div[1]/div/input')
+        password1 = self.driver.find_element(by=By.XPATH, value='/html/body/div/div/div/div[1]/div[2]/div/div[1]/form/div[2]/div/input')
+        login = self.driver.find_element(by = By.XPATH, value='/html/body/div/div/div/div[1]/div[2]/div/div[1]/form/button')
+        email1.send_keys(email)
+        password1.send_keys(password)
+        login.click()
+        time.sleep(3)
+
+    def Query(self):
+        self.driver.get(self.url)
+        Queries = self.driver.find_element(by=By.XPATH, value='/html/body/div/div[1]/nav/ul/div[6]/li/span/div/div[1]')
+        Queries.click()
+
+
+s = Project()
+
+s.Zen_login()
+s.Query()
