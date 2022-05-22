@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import Byfrom selenium import webdriver
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import requests
@@ -13,8 +14,8 @@ class Project:
 
 
     def Zen_login(self):
-        email = "suhassarja@email.com"
-        password = "PASSWORD"
+        email = "suhassarja@gmail.com"
+        password = "********"
         self.driver.get(self.url)
         time.sleep(5)
         email1 = self.driver.find_element(by=By.XPATH, value='/html/body/div/div/div/div[1]/div[2]/div/div[1]/form/div[1]/div/input')
@@ -26,12 +27,49 @@ class Project:
         time.sleep(3)
 
     def Query(self):
-        self.driver.get(self.url)
-        Queries = self.driver.find_element(by=By.XPATH, value='/html/body/div/div[1]/nav/ul/div[6]/li/span/div/div[1]')
+        self.Zen_login()
+        time.sleep(5)
+        Queries = self.driver.find_element(by=By.XPATH, value='/html/body/div/div[1]/nav/ul/div[6]')
         Queries.click()
+        time.sleep(3)
 
+    def Recent_query(self):
+        self.Query()
+        Recent_queries = self.driver.find_element(by=By.XPATH, value='/html/body/div/div[2]/div/div[2]/div[1]/div[2]/span[1]')
+        Recent_queries.click()
+        time.sleep(3)
+    
+    def Create_Query(self):
+        self.Recent_query()
+        Create = self.driver.find_element(by=By.XPATH, value='/html/body/div/div[2]/div/div[1]/div[1]/button')
+        Create.click()
+        time.sleep(3)
+        Close = self.driver.find_element(by=By.XPATH, value='/html/body/div/div[2]/div/div[2]/div[6]/div[2]/div/div/section[1]/img')
+        Close.click()
+        time.sleep(3)
+
+    def Category(self):
+        self.Create_Query()
+        Select_Category = self.driver.find_element(by=By.XPATH, value='/html/body/div/div[2]/div/div[2]/div/div/form/div[2]/div[1]/select/option[2]')
+        Select_Category.click()
+        Select_Subcategory = self.driver.find_element(by=By.XPATH, value='/html/body/div/div[2]/div/div[2]/div/div/form/div[2]/div[2]/select/option[2]')
+        Select_Subcategory.click()
+        Select_Language = self.driver.find_element(by=By.XPATH, value='/html/body/div/div[2]/div/div[2]/div/div/form/div[2]/div[4]/select/option[2]')
+        Select_Language.click()
+        Query_title = self.driver.find_element(by=By.XPATH, value='/html/body/div/div[2]/div/div[2]/div/div/form/div[5]/div/input')
+        Query_discription = self.driver.find_element(by=By.XPATH, value='/html/body/div/div[2]/div/div[2]/div/div/form/div[5]/textarea')
+        Create = self.driver.find_element(by=By.XPATH, value='/html/body/div/div[2]/div/div[2]/div/div/form/div[13]/div/button')
+
+        Query_title.send_keys("Guvi Python AT-1&2 Automation Project")
+        Query_discription.send_keys("This is a Project Test Code Running for the Python Automation - 1&2 Project Given by mentor Mr. Suman Gangopadhyay.")
+        Create.click()
+        time.sleep(3)
+
+           
+
+        
+        
 
 s = Project()
 
-s.Zen_login()
-s.Query()
+s.Category()
